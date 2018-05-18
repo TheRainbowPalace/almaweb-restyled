@@ -1,0 +1,20 @@
+{
+  "name": "Almaweb Restyled",
+  "version": "1.0.0",
+  "description": "Add a responsive design to Almaweb (University of Leipzig)",
+
+  "content_scripts": [
+    {
+      "matches": ["https://almaweb.uni-leipzig.de/*"],
+      "run_at": "document_idle",
+      "js": ["inject.js"]
+    }
+  ],
+
+  "icons": {
+    "20": "images/Icon-20.png",
+    "25": "images/Icon-25.png",
+    "30": "images/Icon-30.png",
+    "40": "images/Icon-40.png"
+  }
+}

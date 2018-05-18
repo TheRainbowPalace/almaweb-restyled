@@ -3,19 +3,19 @@
 <plist version="1.0">
 <dict>
 	<key>Author</key>
-	<string>Jakob Rieke</string>
+	<string>!SetByBuildScript</string>
 	<key>Builder Version</key>
 	<string>13605.1.33.1.2</string>
 	<key>CFBundleDisplayName</key>
-	<string>Responsive Almaweb</string>
+	<string>Almaweb Restyled</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.jakobrieke.responsive-almaweb</string>
+	<string>com.jakobrieke.almaweb-restyled</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>!SetByBuildScript</string>
 	<key>Content</key>
 	<dict>
 		<key>Scripts</key>
@@ -27,11 +27,11 @@
 		</dict>
 	</dict>
 	<key>Description</key>
-	<string>Add a responsive design to Almaweb (University of Leipzig)</string>
+	<string>!SetByBuildScript</string>
 	<key>DeveloperIdentifier</key>
 	<string>0000000000</string>
 	<key>ExtensionInfoDictionaryVersion</key>
-	<string>1.0</string>
+	<string>1.0.0</string>
 	<key>Permissions</key>
 	<dict>
 		<key>Website Access</key>
