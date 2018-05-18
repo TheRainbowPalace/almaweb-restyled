@@ -1,0 +1,28 @@
+{
+  "name": "almaweb-restyled",
+  "version": "1.0.0",
+  "description": "Add a responsive design to Almaweb (University of Leipzig)",
+  "scripts": {
+    "build": "node scripts/build.js",
+    "pack": "node scripts/pack.js",
+    "info": "node scripts/info.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheRainbowPalace/almaweb-restyled.git"
+  },
+  "keywords": [
+    "almaweb",
+    "design",
+    "style",
+    "css",
+    "responsive"
+  ],
+  "author": "Jakob Rieke",
+  "contributors": [],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TheRainbowPalace/almaweb-restyled/issues"
+  },
+  "homepage": "https://github.com/TheRainbowPalace/almaweb-restyled#readme"
+}
