@@ -4,8 +4,7 @@ style = `!StylePlaceholder`
 /* Inject a hamburger button (which toggles the
 *  sidebar) into the website:
 */
-head = document.getElementsByTagName('head')[0]
-head.innerHTML += '<style>' + style + '</style>'
+document.head.innerHTML += '<style>' + style + '</style>'
 
 sidebar = document.getElementById('pageHead')
 
