@@ -1,6 +1,7 @@
 {
   "name": "Almaweb Restyled",
   "version": "1.0.0",
+  "author": "Jakob Rieke",
   "description": "Add a responsive design to Almaweb (University of Leipzig)",
 
   "content_scripts": [
