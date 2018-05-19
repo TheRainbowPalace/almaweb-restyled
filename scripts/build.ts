@@ -5,7 +5,8 @@
 import { PKGINFO } from "./info"
 
 declare let require
-declare var module
+declare let module
+declare let process
 
 const fs = require("fs");
 const execSync = require('child_process').execSync
@@ -16,6 +17,17 @@ export function getNormalName ()
   return PKGINFO.name.toLowerCase().replace(new RegExp(' '), '-');
 }
 
+function copyFiles (isFolder = true, destination: string, ...files: string[])
+{
+  let command = process.platform == 'win32' ? 'copy' : 'cp'
+  if (isFolder) command += ' -r';
+
+  for (let file of files) command += ' ' + file;
+
+  command += ' ' + destination
+  execSync(command)
+}
+
 function replaceInPlist (plist: string, key: string, value: string)
 {
   let subReg = '<string>[\\w\\d()!"§$%&/()=?`´*\'-.,\\s]*<\/string>'
@@ -24,7 +36,8 @@ function replaceInPlist (plist: string, key: string, value: string)
   if (matches == null) throw "Plist-Key not found"
 
   let match = matches[0]
-  match = match.replace(new RegExp(subReg), '<string>' + value + '</string>')
+  match = match.replace(new RegExp(subReg),
+      '<string>' + value + '</string>')
   return plist.replace(regExpr, match)
 }
 
@@ -41,11 +54,11 @@ export function buildSafari (output: string, log = true)
   if (!fs.existsSync(safariDir)) fs.mkdirSync(safariDir);
 
   /* Copy Resources */
-  execSync("cp " +
-      "resources/Icon-16.png " +
-      "resources/Icon-32.png " +
-      "resources/Icon-48.png " +
-      "resources/Icon-64.png " + safariDir)
+  copyFiles(false, safariDir,
+      "resources/Icon-16.png",
+      "resources/Icon-32.png",
+      "resources/Icon-48.png",
+      "resources/Icon-64.png")
 
   /* Create Manifest */
   let manifest = fs.readFileSync("src/safari/Info.plist", {encoding: 'utf8'})
@@ -74,11 +87,12 @@ export function buildChrome (output: string, log = true)
 
   let imgDir = chromeDir + "images/"
   if (!fs.existsSync(imgDir)) fs.mkdirSync(imgDir);
-  execSync("cp " +
-      "resources/Icon-16.png " +
-      "resources/Icon-32.png " +
-      "resources/Icon-48.png " +
-      "resources/Icon-128.png " + chromeDir + "images/")
+
+  copyFiles(false, chromeDir + "images/",
+      "resources/Icon-16.png",
+      "resources/Icon-32.png",
+      "resources/Icon-48.png",
+      "resources/Icon-128.png")
 
   let manifest = fs.readFileSync("src/chrome/manifest.json", {encoding: 'utf8'})
   // -> Manipulate manifest file
@@ -100,9 +114,10 @@ export function buildFirefox (output: string, log = true)
   /* Copy Resources */
   let imgDir = firefoxDir + "images/"
   if (!fs.existsSync(imgDir)) fs.mkdirSync(imgDir);
-  execSync("cp " +
-      "resources/Icon-48.png " +
-      "resources/Icon-96.png " + firefoxDir + "images/")
+
+  copyFiles(false, firefoxDir + "images/",
+      "resources/Icon-48.png",
+      "resources/Icon-96.png")
 
   /* Create Manifest */
   let manifest = fs.readFileSync("src/firefox/manifest.json", {encoding: 'utf8'})
@@ -122,11 +137,12 @@ export function buildEdge (output: string, log = true)
   /* Copy Resources */
   let imgDir = edgeDir + "images/"
   if (!fs.existsSync(imgDir)) fs.mkdirSync(imgDir);
-  execSync("cp " +
-      "resources/Icon-20.png " +
-      "resources/Icon-25.png " +
-      "resources/Icon-30.png " +
-      "resources/Icon-40.png " + edgeDir + "images/")
+
+  copyFiles(false, edgeDir + "images/",
+      "resources/Icon-20.png",
+      "resources/Icon-25.png",
+      "resources/Icon-30.png",
+      "resources/Icon-40.png")
 
   /* Create Manifest */
   let manifest = fs.readFileSync("src/edge/manifest.json", {encoding: 'utf8'})
