@@ -23,7 +23,7 @@ After you are done installing, you can delete the folder.
 - (Optional) Hide the develop menu again
 
 **Chrome**
-- Open Chrome
+- Open Google Chrome
 - Menu Bar -> Window -> Extensions
 - Activate 'Develop mode'
 - Click on 'Load Unpacked'
@@ -38,6 +38,18 @@ After you are done installing, you can delete the folder.
   unzipped folder
 - Select the manifest.json file and click open
 - Note that the extension is only installed temporarily (until you restart Firefox)
+
+**Edge**
+- Open Microsoft Edge
+- Enter about:flags into the search bar
+- Activate 'Enable extension developer features'
+- Click on the three dotted icon
+- Click on Extensions
+- Scroll to the bottom
+- There should be a 'Load Extension' button here, if there is not restart Edge
+- Click on the button
+- Navigate to the unzipped folder and select the edge-extension folder
+- Note that the extension will turn off after some idle time or when you restart the browser, you can reenable it in the extension menu
 
 Go to [almaweb.uni-leipzig.de](https://almaweb.uni-leipzig.de) and enjoy.
 
