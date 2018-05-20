@@ -109,9 +109,6 @@ export function buildChrome (output: string, log = true)
 
   /* Copy Other Source Files */
   fs.writeFileSync(chromeDir + '/inject.js', output, 'utf8')
-  execSync("cp " +
-      "src/splashscreen.js " +
-      "src/splashscreen.css " + chromeDir)
 }
 
 export function buildFirefox (output: string, log = true)

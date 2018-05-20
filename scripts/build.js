@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 /**
  * Created by Jakob Rieke on 18.05.18.
  * Copyright © 18.05.18 Jakob Rieke. All rights reserved.
@@ -89,9 +89,6 @@ function buildChrome(output, log) {
     fs.writeFileSync(chromeDir + 'manifest.json', JSON.stringify(manifest), 'utf8');
     /* Copy Other Source Files */
     fs.writeFileSync(chromeDir + '/inject.js', output, 'utf8');
-    execSync("cp " +
-        "src/splashscreen.js " +
-        "src/splashscreen.css " + chromeDir);
 }
 exports.buildChrome = buildChrome;
 function buildFirefox(output, log) {
