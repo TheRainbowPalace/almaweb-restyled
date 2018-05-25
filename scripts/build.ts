@@ -6,7 +6,6 @@ import { PKGINFO } from "./info"
 
 declare let require
 declare let module
-declare let process
 
 const fs = require("fs");
 const execSync = require('child_process').execSync
@@ -16,19 +15,6 @@ export function getNormalName ()
 {
   return PKGINFO.name.toLowerCase().replace(new RegExp(' '), '-');
 }
-
-/*
-function copyFiles (isFolder = true, destination: string, ...files: string[])
-{
-  let command = process.platform == 'win32' ? 'copy' : 'cp'
-  if (isFolder) command += ' -r';
-
-  for (let file of files) command += ' ' + file;
-
-  command += ' ' + destination
-  execSync(command)
-}
-*/
 
 function copyFiles (destination: string, ...files: string[])
 {

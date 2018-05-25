@@ -11,18 +11,6 @@ function getNormalName() {
     return info_1.PKGINFO.name.toLowerCase().replace(new RegExp(' '), '-');
 }
 exports.getNormalName = getNormalName;
-/*
-function copyFiles (isFolder = true, destination: string, ...files: string[])
-{
-  let command = process.platform == 'win32' ? 'copy' : 'cp'
-  if (isFolder) command += ' -r';
-
-  for (let file of files) command += ' ' + file;
-
-  command += ' ' + destination
-  execSync(command)
-}
-*/
 function copyFiles(destination) {
     var files = [];
     for (var _i = 1; _i < arguments.length; _i++) {
