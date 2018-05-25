@@ -23,6 +23,12 @@ function copyFiles(destination) {
         fs.copyFileSync(file, destination + filename);
     }
 }
+/**
+ * Replace a value in a .plist file (Mac OS key-value files)
+ * @param {string} plist The .plist file to edit.
+ * @param {string} key The key in the .plist file to edit.
+ * @param {string} value The new value to be set for the key.
+ */
 function replaceInPlist(plist, key, value) {
     var subReg = '<string>[\\w\\d()!"§$%&/()=?`´*\'-.,\\s]*<\/string>';
     var regExpr = new RegExp('<key>' + key + '<\/key>\\s*' + subReg);
@@ -69,13 +75,19 @@ function buildChrome(output, log) {
     var chromeDir = "build/chrome-extension/";
     if (!fs.existsSync(chromeDir))
         fs.mkdirSync(chromeDir);
+    /* Copy Resources */
     var imgDir = chromeDir + "images/";
     if (!fs.existsSync(imgDir))
         fs.mkdirSync(imgDir);
     copyFiles(chromeDir + "images/", "resources/Icon-16.png", "resources/Icon-32.png", "resources/Icon-48.png", "resources/Icon-128.png");
+    /* Create Manifest */
     var manifest = fs.readFileSync("src/chrome/manifest.json", { encoding: 'utf8' });
-    // -> Manipulate manifest file
-    fs.writeFileSync(chromeDir + 'manifest.json', manifest, 'utf8');
+    manifest = JSON.parse(manifest);
+    manifest.version = info_1.PKGINFO.version;
+    manifest.name = info_1.PKGINFO.name;
+    manifest.description = info_1.PKGINFO.description;
+    fs.writeFileSync(chromeDir + 'manifest.json', JSON.stringify(manifest), 'utf8');
+    /* Copy Other Source Files */
     fs.writeFileSync(chromeDir + '/inject.js', output, 'utf8');
     execSync("cp " +
         "src/splashscreen.js " +
@@ -96,7 +108,11 @@ function buildFirefox(output, log) {
     copyFiles(firefoxDir + "images/", "resources/Icon-48.png", "resources/Icon-96.png");
     /* Create Manifest */
     var manifest = fs.readFileSync("src/firefox/manifest.json", { encoding: 'utf8' });
-    fs.writeFileSync(firefoxDir + 'manifest.json', manifest, 'utf8');
+    manifest = JSON.parse(manifest);
+    manifest.version = info_1.PKGINFO.version;
+    manifest.name = info_1.PKGINFO.name;
+    manifest.description = info_1.PKGINFO.description;
+    fs.writeFileSync(firefoxDir + 'manifest.json', JSON.stringify(manifest), 'utf8');
     /* Copy Other Source Files */
     fs.writeFileSync(firefoxDir + '/inject.js', output, 'utf8');
 }
@@ -115,7 +131,12 @@ function buildEdge(output, log) {
     copyFiles(edgeDir + "images/", "resources/Icon-20.png", "resources/Icon-25.png", "resources/Icon-30.png", "resources/Icon-40.png");
     /* Create Manifest */
     var manifest = fs.readFileSync("src/edge/manifest.json", { encoding: 'utf8' });
-    fs.writeFileSync(edgeDir + 'manifest.json', manifest, 'utf8');
+    manifest = JSON.parse(manifest);
+    manifest.version = info_1.PKGINFO.version;
+    manifest.name = info_1.PKGINFO.name;
+    manifest.description = info_1.PKGINFO.description;
+    manifest.author = info_1.PKGINFO.author;
+    fs.writeFileSync(edgeDir + 'manifest.json', JSON.stringify(manifest), 'utf8');
     /* Copy Other Source Files */
     fs.writeFileSync(edgeDir + '/inject.js', output, 'utf8');
 }

@@ -26,6 +26,12 @@ function copyFiles (destination: string, ...files: string[])
   }
 }
 
+/**
+ * Replace a value in a .plist file (Mac OS key-value files)
+ * @param {string} plist The .plist file to edit.
+ * @param {string} key The key in the .plist file to edit.
+ * @param {string} value The new value to be set for the key.
+ */
 function replaceInPlist (plist: string, key: string, value: string)
 {
   let subReg = '<string>[\\w\\d()!"§$%&/()=?`´*\'-.,\\s]*<\/string>'
@@ -83,6 +89,7 @@ export function buildChrome (output: string, log = true)
   let chromeDir = "build/chrome-extension/"
   if (!fs.existsSync(chromeDir)) fs.mkdirSync(chromeDir);
 
+  /* Copy Resources */
   let imgDir = chromeDir + "images/"
   if (!fs.existsSync(imgDir)) fs.mkdirSync(imgDir);
 
@@ -92,10 +99,15 @@ export function buildChrome (output: string, log = true)
       "resources/Icon-48.png",
       "resources/Icon-128.png")
 
+  /* Create Manifest */
   let manifest = fs.readFileSync("src/chrome/manifest.json", {encoding: 'utf8'})
-  // -> Manipulate manifest file
-  fs.writeFileSync(chromeDir + 'manifest.json', manifest, 'utf8')
+  manifest = JSON.parse(manifest)
+  manifest.version = PKGINFO.version
+  manifest.name = PKGINFO.name
+  manifest.description = PKGINFO.description
+  fs.writeFileSync(chromeDir + 'manifest.json', JSON.stringify(manifest), 'utf8')
 
+  /* Copy Other Source Files */
   fs.writeFileSync(chromeDir + '/inject.js', output, 'utf8')
   execSync("cp " +
       "src/splashscreen.js " +
@@ -119,7 +131,11 @@ export function buildFirefox (output: string, log = true)
 
   /* Create Manifest */
   let manifest = fs.readFileSync("src/firefox/manifest.json", {encoding: 'utf8'})
-  fs.writeFileSync(firefoxDir + 'manifest.json', manifest, 'utf8')
+  manifest = JSON.parse(manifest)
+  manifest.version = PKGINFO.version
+  manifest.name = PKGINFO.name
+  manifest.description = PKGINFO.description
+  fs.writeFileSync(firefoxDir + 'manifest.json', JSON.stringify(manifest), 'utf8')
 
   /* Copy Other Source Files */
   fs.writeFileSync(firefoxDir + '/inject.js', output, 'utf8')
@@ -144,7 +160,12 @@ export function buildEdge (output: string, log = true)
 
   /* Create Manifest */
   let manifest = fs.readFileSync("src/edge/manifest.json", {encoding: 'utf8'})
-  fs.writeFileSync(edgeDir + 'manifest.json', manifest, 'utf8')
+  manifest = JSON.parse(manifest)
+  manifest.version = PKGINFO.version
+  manifest.name = PKGINFO.name
+  manifest.description = PKGINFO.description
+  manifest.author = PKGINFO.author
+  fs.writeFileSync(edgeDir + 'manifest.json', JSON.stringify(manifest), 'utf8')
 
   /* Copy Other Source Files */
   fs.writeFileSync(edgeDir + '/inject.js', output, 'utf8')
