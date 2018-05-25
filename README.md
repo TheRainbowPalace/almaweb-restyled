@@ -1,6 +1,6 @@
-## Responsive Almaweb
+## Almaweb Restyled
 
-Responsive Almaweb is an extension for Chrome, Firefox, Safari & Edge.
+Almaweb Restyled is an extension for Chrome, Firefox, Safari & Edge.
 It restyles the look and feel of the [Almaweb
 website](https://almaweb.uni-leipzig.de) of the University of Leipzig.
 The goal is to provide a clean and easy to use design since the current
