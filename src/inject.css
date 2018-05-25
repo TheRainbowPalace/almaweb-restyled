@@ -60,14 +60,27 @@ td, .tbdata {
     transition: all 0.1s ease;
     box-sizing: border-box;
     height: 100%;
-    overflow: scroll;
+    overflow: auto;
 }
 
 @media (min-width: 801px)
 {
+    /*--- Page Header ---*/
+
     #acc_pageDescription {
         z-index: 3;
     }
+
+    #acc_pageDescription::before {
+        margin-left: 0;
+        left: var(--main-spacing);
+    }
+
+    #showSidebar {
+        display: none;
+    }
+
+    /*--- Main ---*/
 
     #pageContainer {
         box-sizing: border-box;
@@ -77,11 +90,15 @@ td, .tbdata {
         margin-top: 40px;
     }
 
+    /*--- Sidebar ---*/
+
     #pageHead {
         box-shadow: none;
         background-color: white;
         width: 260px;
     }
+
+    /*--- Content ---*/
 
     #pageContentContainer {
         margin-left: 260px;
@@ -91,15 +108,17 @@ td, .tbdata {
 
 @media (max-width: 800px)
 {
-    #pageContainer {
-        position: static;
-    }
-
     #acc_pageDescription {
         z-index: 1;
     }
 
-    #pageHead {
+    #acc_pageDescription::before {
+        left: 50%;
+        margin-left: -45px;
+    }
+
+    #pageContainer {
+        position: static;
     }
 
     #pageContentContainer {
@@ -109,7 +128,8 @@ td, .tbdata {
     }
 }
 
-/*---------------- PAGE TOP BAR -----------------*/
+/*---- Page Header ----*/
+
 #acc_pageDescription {
     box-sizing: border-box;
     width: 100%;
@@ -129,10 +149,10 @@ td, .tbdata {
 
 #acc_pageDescription::before {
     position: absolute;
-    left: 50%;
     width: 90px;
-    height: 30px;
-    margin-left: -45px;
+    height: 32px;
+
+    transition: all 0.15s ease;
 
     background: url("/gfx/ule/logo.gif") center center no-repeat;
     background-size: 90px;
@@ -167,7 +187,8 @@ td, .tbdata {
 }
 
 
-/*---------------- PAGE SIDEBAR -----------*/
+/*---- Page Sidebar ----*/
+
 #pageTopNavi {
     position: unset;
     left: 0;
