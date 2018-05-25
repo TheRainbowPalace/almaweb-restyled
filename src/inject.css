@@ -1,4 +1,12 @@
-/*-------------- GENERAL --------------*/
+/* Basic structure of the Almaweb-website
+ * body
+ *   header (#acc_pageDescription)
+ *   main (#pageContainer)
+ *     sidebar (#pageHead)
+ *     content (#pageContentContainer)
+ */
+
+/*---- GENERAL ----*/
 :root {
     --main-spacing: 15px;
     --highlight-color: #ff773d; /* #4fc08d */
@@ -31,12 +39,83 @@ td, .tbdata {
 }
 
 
-/*----------------- PAGE CONTENT -----------------*/
+/*---- Page Header ----*/
+
+#acc_pageDescription {
+    box-sizing: border-box;
+    width: 100%;
+    height: 40px;
+    padding: 0 var(--main-spacing);
+
+    background-color: #fff;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.25);
+    font-size: 0;
+
+    position: fixed;
+
+    overflow: unset;
+    display: flex;
+    align-items: center;
+}
+
+#acc_pageDescription::before {
+    position: absolute;
+    width: 90px;
+    height: 32px;
+
+    transition: all 0.15s ease;
+
+    background: url("/gfx/ule/logo.gif") center center no-repeat;
+    background-size: 90px;
+
+    content: "";
+}
+
+/*--- Menu Icon ---*/
+
+#showSidebar {
+    outline: none;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    width: 25px;
+    height: 17px;
+    position: relative;
+    box-shadow: inset 0 3px 0 #707070, inset 0 -3px 0 #4a4a4a;
+}
+
+#showSidebar::after {
+    content: '';
+    width: 100%;
+    height: 3px;
+    background-color: var(--highlight-color);
+    position: absolute;
+    top: 7px;
+    left: 0;
+}
+
+#showSidebar:hover {
+    box-shadow: inset 0 3px 0 #ff661d, inset 0 -3px 0 #ff773d;
+}
+
+
+/*---- Main ----*/
+
 #pageContainer {
     min-width: unset !important;
     height: calc(100% - 40px);
     display: flex;
 }
+
+#pageHead, #pageContentContainer {
+    transition: all 0.1s ease;
+    box-sizing: border-box;
+    height: 100%;
+    overflow: auto;
+}
+
+
+/*---- Sidebar ----*/
 
 .open {
     width: 260px !important;
@@ -45,7 +124,6 @@ td, .tbdata {
 #pageHead {
     width: 0;
     padding-top: var(--main-spacing);
-    padding-bottom: 50px;
 
     position: fixed;
     z-index: 2;
@@ -56,12 +134,298 @@ td, .tbdata {
     background-color: #f9f9f9;
 }
 
-#pageHead, #pageContentContainer {
-    transition: all 0.1s ease;
-    box-sizing: border-box;
-    height: 100%;
-    overflow: auto;
+#pageTopNavi {
+    position: unset;
+    left: 0;
+    top: unset;
+    z-index: unset;
+    overflow: unset;
+    height: auto;
+
+    min-width: unset;
+    width: 100%;
+    margin: var(--main-spacing) 0 !important;
+    padding: 0 0 50px !important;
+    order: 2;
+
 }
+
+#pageTopNavi > ul.nav {
+    margin-bottom: 0 !important;
+
+    display: flex;
+    flex-direction: column;
+    height: auto;
+}
+
+#pageTopNavi > ul > li {
+    width: auto;
+}
+
+#pageTopNavi li {
+    border-top: none !important;
+    margin: 0 0 0 var(--main-spacing) !important;
+}
+
+#pageTopNavi > ul > li a {
+    padding: 5px 0 5px 0 !important;
+    margin: 0 !important;
+
+    color: var(--main-font-color) !important;
+}
+
+#pageTopNavi > ul > li a,
+#pageTopNavi .depth_2,
+#pageTopNavi ul.nav li.depth_3 {
+    background: transparent none !important;
+}
+
+#pageTopNavi > ul > li > a {
+    font-weight: bold !important;
+    width: auto;
+}
+
+#pageTopNavi > ul > li a:hover {
+    text-decoration: underline;
+}
+
+#pageTopNavi ul {
+    width: 100% !important;
+}
+
+#pageTopNavi ul.nav.depth_2 {
+    margin: 0;
+}
+
+.nav, .nav li, .nav ul {
+    position: unset !important;
+}
+
+.navLink,
+ul.nav.depth_2 li a.depth_2,
+a.depth_3.navLink {
+    font-weight: unset !important;
+}
+
+
+/*--- Hidden Sidebar Content ---*/
+#pageHeadCenter {
+    display: none;
+}
+
+#pageHeadLeft, #pageHeadRight {
+    display: none;
+}
+
+/*--- Sidebar Miscellaneous ---*/
+
+#pageHeadBottom_1 {
+    position: unset;
+    padding-left: var(--main-spacing);
+    width: calc(100% - var(--main-spacing));
+    display: none;
+}
+
+#pageHeadBottom_3 {
+    background-image: none;
+    height: auto;
+}
+
+#pageHeadSwitchLang {
+    margin-top: unset;
+}
+
+#pageHeadSwitchLang {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px var(--main-spacing) 5px var(--main-spacing);
+}
+
+#pageHeadSwitchLang a {
+    padding: 0.25em 1.5em;
+    margin: 0 !important;
+
+    transition: all 0.15s ease;
+
+    border: 1px solid var(--highlight-color);
+    background-color: white;
+    color: var(--highlight-color) !important;
+
+    font-weight: 500;
+    text-decoration: none;
+}
+
+#pageHeadSwitchLang a:hover {
+    background-color: var(--highlight-color);
+    color: white !important;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.15);
+}
+
+/*--- Login Form ---*/
+
+#cn_loginForm {
+    padding: var(--main-spacing);
+}
+
+#cn_loginForm > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#fieldSet_login .inputFieldLabel {
+    margin: 0;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#fieldSet_login .inputFieldLabel:first-child {
+    margin-bottom: 5px;
+}
+
+#fieldSet_login .inputFieldLabel > label {
+    margin: 0 var(--main-spacing) 0 0;
+}
+
+#fieldSet_login .inputFieldLabel input {
+    height: 30px;
+    width: 100%;
+    padding: 0 15px 0 20px;
+    margin: 0 !important;
+    box-sizing: border-box;
+
+    transition: all 0.15s ease;
+
+    outline: none;
+    border: 1px solid #e3e3e3;
+    background-color: white;
+    color: var(--main-font-color);
+}
+
+#fieldSet_login .inputFieldLabel input:hover,
+#fieldSet_login .inputFieldLabel input:focus {
+    border: 1px solid var(--highlight-color);
+}
+
+
+/*---- Content ----*/
+
+#pageLeft {
+    width: unset;
+    float: unset;
+    min-height: unset;
+}
+
+#pageContent {
+    float: unset;
+    margin-top: unset;
+    min-width: unset;
+    min-height: unset;
+    border-left: unset;
+    width: unset;
+    padding-bottom: unset;
+    padding-left: unset;
+}
+
+#pageContentTop {
+    margin: 0 0 0 var(--main-spacing) !important;
+    width: auto;
+}
+
+#loginData {
+    width: unset;
+}
+
+#contentSpacer_IE {
+    width: calc(100% - 30px);
+    padding: var(--main-spacing);
+}
+
+.contentlayoutleft, #contentlayoutleft {
+    width: 100%;
+    float: unset;
+}
+
+.contentlayoutright, #contentlayoutright {
+    width: 100%;
+    float: unset;
+    margin: 0;
+    display: inline;
+}
+
+/*--- Content subtitles ---*/
+
+table {
+    margin-bottom: 60px !important;
+}
+
+table > caption {
+    margin: 0 0 var(--main-spacing);
+    background-color: transparent;
+    color: #333333;
+    font-size: 1.5em;
+
+    border-bottom: 1px solid #ddd;
+
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+    table.tb caption {
+        margin-right: 0;
+    }
+}
+
+
+/*---- Footer ----*/
+
+#pageFoot {
+    display: none; /* Remove to get a floating footer */
+
+    padding: 4px var(--main-spacing) 4px var(--main-spacing);
+    height: auto;
+    width: 100%;
+    box-sizing: border-box;
+    position: fixed;
+    z-index: 3;
+    margin: 0;
+}
+
+#pageFootControls {
+    padding-right: 0;
+    position: unset;
+}
+
+#pageFootControls, #pageFootControlsLeft, #pageFootControlsRight {
+    height: unset;
+}
+
+#pageFootControlsLeft {
+    float: left;
+    text-align: left;
+    color: #888;
+    font-size: 12px;
+    padding-top: 2px;
+    padding-left: 3px;
+}
+
+#pageFootControlsRight {
+    display: inline;
+}
+
+#pageFootControlsLeft a {
+    padding-right: 0;
+}
+
+#pageFootControl_up {
+    right: unset;
+    position: initial;
+}
+
+
+/*---- Media Queries ----*/
 
 @media (min-width: 801px)
 {
@@ -126,350 +490,4 @@ td, .tbdata {
         position: relative;
         width: 100%;
     }
-}
-
-/*---- Page Header ----*/
-
-#acc_pageDescription {
-    box-sizing: border-box;
-    width: 100%;
-    height: 40px;
-    padding: 0 var(--main-spacing);
-
-    background-color: #fff;
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.25);
-    font-size: 0;
-
-    position: fixed;
-
-    overflow: unset;
-    display: flex;
-    align-items: center;
-}
-
-#acc_pageDescription::before {
-    position: absolute;
-    width: 90px;
-    height: 32px;
-
-    transition: all 0.15s ease;
-
-    background: url("/gfx/ule/logo.gif") center center no-repeat;
-    background-size: 90px;
-
-    content: "";
-}
-
-/*-- Hamburger Menu Icon --*/
-#showSidebar {
-    outline: none;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    width: 25px;
-    height: 17px;
-    position: relative;
-    box-shadow: inset 0 3px 0 #707070, inset 0 -3px 0 #4a4a4a;
-}
-
-#showSidebar::after {
-    content: '';
-    width: 100%;
-    height: 3px;
-    background-color: var(--highlight-color);
-    position: absolute;
-    top: 7px;
-    left: 0;
-}
-
-#showSidebar:hover {
-    box-shadow: inset 0 3px 0 #ff661d, inset 0 -3px 0 #ff773d;
-}
-
-
-/*---- Page Sidebar ----*/
-
-#pageTopNavi {
-    position: unset;
-    left: 0;
-    top: unset;
-    z-index: unset;
-    overflow: unset;
-    height: auto;
-
-    min-width: unset;
-    width: 100%;
-    margin: var(--main-spacing) 0 !important;
-    padding: 0;
-    order: 2;
-}
-
-#pageTopNavi > ul.nav {
-    margin-bottom: 0 !important;
-
-    display: flex;
-    flex-direction: column;
-    height: auto;
-}
-
-#pageTopNavi > ul > li {
-    width: auto;
-}
-
-#pageTopNavi li {
-    border-top: none !important;
-    margin: 0 0 0 var(--main-spacing) !important;
-}
-
-#pageTopNavi > ul > li a {
-    padding: 5px 0 5px 0 !important;
-    margin: 0 !important;
-
-    color: var(--main-font-color) !important;
-}
-
-#pageTopNavi > ul > li a,
-#pageTopNavi .depth_2,
-#pageTopNavi ul.nav li.depth_3 {
-    background: transparent none !important;
-}
-
-#pageTopNavi > ul > li > a {
-    font-weight: bold !important;
-    width: auto;
-}
-
-#pageTopNavi > ul > li a:hover {
-    text-decoration: underline;
-}
-
-#pageTopNavi ul {
-    width: 100% !important;
-}
-
-#pageTopNavi ul.nav.depth_2 {
-    margin: 0;
-}
-
-.nav, .nav li, .nav ul {
-    position: unset !important;
-}
-
-.navLink,
-ul.nav.depth_2 li a.depth_2,
-a.depth_3.navLink {
-    font-weight: unset !important;
-}
-
-
-/*---------- HIDDEN PAGE HEAD CONTENT ----------*/
-#pageHeadCenter {
-    display: none;
-}
-
-#pageHeadLeft, #pageHeadRight {
-    display: none;
-}
-
-/*------------ PAGE HEAD MISCELLANEOUS -------------*/
-/* Black header */
-#pageHeadBottom_1 {
-    position: unset;
-    padding-left: var(--main-spacing);
-    width: calc(100% - var(--main-spacing));
-    display: none;
-}
-
-#pageHeadBottom_3 {
-    background-image: none;
-    height: auto;
-}
-
-#pageHeadSwitchLang {
-    margin-top: unset;
-}
-
-#pageHeadSwitchLang {
-    display: flex;
-    justify-content: space-between;
-    padding: 5px var(--main-spacing) 5px var(--main-spacing);
-}
-
-#pageHeadSwitchLang a {
-    padding: 0.25em 1.5em;
-    margin: 0 !important;
-
-    transition: all 0.15s ease;
-
-    border: 1px solid var(--highlight-color);
-    background-color: white;
-    color: var(--highlight-color) !important;
-
-    font-weight: 500;
-    text-decoration: none;
-}
-
-#pageHeadSwitchLang a:hover {
-    background-color: var(--highlight-color);
-    color: white !important;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.15);
-}
-
-/*------------------- LOGIN FORM -------------------*/
-#cn_loginForm {
-    padding: var(--main-spacing);
-}
-
-#cn_loginForm > div {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-#fieldSet_login .inputFieldLabel {
-    margin: 0;
-    width: 100%;
-
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-#fieldSet_login .inputFieldLabel:first-child {
-    margin-bottom: 5px;
-}
-
-#fieldSet_login .inputFieldLabel > label {
-    margin: 0 var(--main-spacing) 0 0;
-}
-
-#fieldSet_login .inputFieldLabel input {
-    height: 30px;
-    width: 100%;
-    padding: 0 15px 0 20px;
-    margin: 0 !important;
-    box-sizing: border-box;
-
-    transition: all 0.15s ease;
-
-    outline: none;
-    border: 1px solid #e3e3e3;
-    background-color: white;
-    color: var(--main-font-color);
-}
-
-#fieldSet_login .inputFieldLabel input:hover,
-#fieldSet_login .inputFieldLabel input:focus {
-    border: 1px solid var(--highlight-color);
-}
-
-/*------------------- PAGECONTENT ------------------*/
-
-#pageLeft {
-    width: unset;
-    float: unset;
-    min-height: unset;
-}
-
-#pageContent {
-    float: unset;
-    margin-top: unset;
-    min-width: unset;
-    min-height: unset;
-    border-left: unset;
-    width: unset;
-    padding-bottom: unset;
-    padding-left: unset;
-}
-
-#pageContentTop {
-    margin: 0 0 0 var(--main-spacing) !important;
-    width: auto;
-}
-
-#loginData {
-    width: unset;
-}
-
-#contentSpacer_IE {
-    width: calc(100% - 30px);
-    padding: var(--main-spacing);
-}
-
-.contentlayoutleft, #contentlayoutleft {
-    width: 100%;
-    float: unset;
-}
-
-.contentlayoutright, #contentlayoutright {
-    width: 100%;
-    float: unset;
-    margin: 0;
-    display: inline; /* Toggle to hide possible redundant content */
-}
-
-/* Restyle content subtitles */
-table {
-    margin-bottom: 60px !important;
-}
-
-table > caption {
-    margin: 0 0 var(--main-spacing);
-    background-color: transparent;
-    color: #333333;
-    font-size: 1.5em;
-
-    border-bottom: 1px solid #ddd;
-
-}
-
-@media screen and (-webkit-min-device-pixel-ratio: 0) {
-    table.tb caption {
-        margin-right: 0;
-    }
-}
-
-/*------------------ PAGE FOOT ---------------*/
-
-#pageFoot {
-    display: none;
-
-    padding: 4px var(--main-spacing) 4px var(--main-spacing);
-    height: auto;
-    width: 100%;
-    box-sizing: border-box;
-    position: fixed; /* Set to 'fixed' to get a floating footer */
-    z-index: 3;
-    margin: 0;
-}
-
-#pageFootControls {
-    padding-right: 0;
-    position: unset;
-}
-
-#pageFootControls, #pageFootControlsLeft, #pageFootControlsRight {
-    height: unset;
-}
-
-#pageFootControlsLeft {
-    float: left;
-    text-align: left;
-    color: #888;
-    font-size: 12px;
-    padding-top: 2px;
-    padding-left: 3px;
-}
-
-#pageFootControlsRight {
-    display: inline;
-}
-
-#pageFootControlsLeft a {
-    padding-right: 0;
-}
-
-#pageFootControl_up {
-    right: unset;
-    position: initial;
 }
