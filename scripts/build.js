@@ -11,21 +11,29 @@ function getNormalName() {
     return info_1.PKGINFO.name.toLowerCase().replace(new RegExp(' '), '-');
 }
 exports.getNormalName = getNormalName;
-function copyFiles(isFolder, destination) {
-    if (isFolder === void 0) { isFolder = true; }
+/*
+function copyFiles (isFolder = true, destination: string, ...files: string[])
+{
+  let command = process.platform == 'win32' ? 'copy' : 'cp'
+  if (isFolder) command += ' -r';
+
+  for (let file of files) command += ' ' + file;
+
+  command += ' ' + destination
+  execSync(command)
+}
+*/
+function copyFiles(destination) {
     var files = [];
-    for (var _i = 2; _i < arguments.length; _i++) {
-        files[_i - 2] = arguments[_i];
+    for (var _i = 1; _i < arguments.length; _i++) {
+        files[_i - 1] = arguments[_i];
     }
-    var command = process.platform == 'win32' ? 'copy' : 'cp';
-    if (isFolder)
-        command += ' -r';
+    var filename;
     for (var _a = 0, files_1 = files; _a < files_1.length; _a++) {
         var file = files_1[_a];
-        command += ' ' + file;
+        filename = file.split('/').slice(-1)[0];
+        fs.copyFileSync(file, destination + filename);
     }
-    command += ' ' + destination;
-    execSync(command);
 }
 function replaceInPlist(plist, key, value) {
     var subReg = '<string>[\\w\\d()!"§$%&/()=?`´*\'-.,\\s]*<\/string>';
@@ -50,7 +58,7 @@ function buildSafari(output, log) {
     if (!fs.existsSync(safariDir))
         fs.mkdirSync(safariDir);
     /* Copy Resources */
-    copyFiles(false, safariDir, "resources/Icon-16.png", "resources/Icon-32.png", "resources/Icon-48.png", "resources/Icon-64.png");
+    copyFiles(safariDir, "resources/Icon-16.png", "resources/Icon-32.png", "resources/Icon-48.png", "resources/Icon-64.png");
     /* Create Manifest */
     var manifest = fs.readFileSync("src/safari/Info.plist", { encoding: 'utf8' });
     manifest = replaceInPlist(manifest, 'Author', info_1.PKGINFO.author);
@@ -76,7 +84,7 @@ function buildChrome(output, log) {
     var imgDir = chromeDir + "images/";
     if (!fs.existsSync(imgDir))
         fs.mkdirSync(imgDir);
-    copyFiles(false, chromeDir + "images/", "resources/Icon-16.png", "resources/Icon-32.png", "resources/Icon-48.png", "resources/Icon-128.png");
+    copyFiles(chromeDir + "images/", "resources/Icon-16.png", "resources/Icon-32.png", "resources/Icon-48.png", "resources/Icon-128.png");
     var manifest = fs.readFileSync("src/chrome/manifest.json", { encoding: 'utf8' });
     // -> Manipulate manifest file
     fs.writeFileSync(chromeDir + 'manifest.json', manifest, 'utf8');
@@ -97,7 +105,7 @@ function buildFirefox(output, log) {
     var imgDir = firefoxDir + "images/";
     if (!fs.existsSync(imgDir))
         fs.mkdirSync(imgDir);
-    copyFiles(false, firefoxDir + "images/", "resources/Icon-48.png", "resources/Icon-96.png");
+    copyFiles(firefoxDir + "images/", "resources/Icon-48.png", "resources/Icon-96.png");
     /* Create Manifest */
     var manifest = fs.readFileSync("src/firefox/manifest.json", { encoding: 'utf8' });
     fs.writeFileSync(firefoxDir + 'manifest.json', manifest, 'utf8');
@@ -116,7 +124,7 @@ function buildEdge(output, log) {
     var imgDir = edgeDir + "images/";
     if (!fs.existsSync(imgDir))
         fs.mkdirSync(imgDir);
-    copyFiles(false, edgeDir + "images/", "resources/Icon-20.png", "resources/Icon-25.png", "resources/Icon-30.png", "resources/Icon-40.png");
+    copyFiles(edgeDir + "images/", "resources/Icon-20.png", "resources/Icon-25.png", "resources/Icon-30.png", "resources/Icon-40.png");
     /* Create Manifest */
     var manifest = fs.readFileSync("src/edge/manifest.json", { encoding: 'utf8' });
     fs.writeFileSync(edgeDir + 'manifest.json', manifest, 'utf8');

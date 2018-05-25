@@ -17,6 +17,7 @@ export function getNormalName ()
   return PKGINFO.name.toLowerCase().replace(new RegExp(' '), '-');
 }
 
+/*
 function copyFiles (isFolder = true, destination: string, ...files: string[])
 {
   let command = process.platform == 'win32' ? 'copy' : 'cp'
@@ -26,6 +27,17 @@ function copyFiles (isFolder = true, destination: string, ...files: string[])
 
   command += ' ' + destination
   execSync(command)
+}
+*/
+
+function copyFiles (destination: string, ...files: string[])
+{
+  let filename
+  for (let file of files)
+  {
+    filename = file.split('/').slice(-1)[0]
+    fs.copyFileSync(file, destination + filename)
+  }
 }
 
 function replaceInPlist (plist: string, key: string, value: string)
@@ -54,7 +66,7 @@ export function buildSafari (output: string, log = true)
   if (!fs.existsSync(safariDir)) fs.mkdirSync(safariDir);
 
   /* Copy Resources */
-  copyFiles(false, safariDir,
+  copyFiles(safariDir,
       "resources/Icon-16.png",
       "resources/Icon-32.png",
       "resources/Icon-48.png",
@@ -88,7 +100,7 @@ export function buildChrome (output: string, log = true)
   let imgDir = chromeDir + "images/"
   if (!fs.existsSync(imgDir)) fs.mkdirSync(imgDir);
 
-  copyFiles(false, chromeDir + "images/",
+  copyFiles(chromeDir + "images/",
       "resources/Icon-16.png",
       "resources/Icon-32.png",
       "resources/Icon-48.png",
@@ -115,7 +127,7 @@ export function buildFirefox (output: string, log = true)
   let imgDir = firefoxDir + "images/"
   if (!fs.existsSync(imgDir)) fs.mkdirSync(imgDir);
 
-  copyFiles(false, firefoxDir + "images/",
+  copyFiles(firefoxDir + "images/",
       "resources/Icon-48.png",
       "resources/Icon-96.png")
 
@@ -138,7 +150,7 @@ export function buildEdge (output: string, log = true)
   let imgDir = edgeDir + "images/"
   if (!fs.existsSync(imgDir)) fs.mkdirSync(imgDir);
 
-  copyFiles(false, edgeDir + "images/",
+  copyFiles(edgeDir + "images/",
       "resources/Icon-20.png",
       "resources/Icon-25.png",
       "resources/Icon-30.png",
