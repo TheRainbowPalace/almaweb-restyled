@@ -1,6 +1,6 @@
 {
   "name": "almaweb-restyled",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "Add a responsive design to Almaweb (University of Leipzig)",
   "scripts": {
     "build": "node scripts/build.js",
